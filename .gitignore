@@ -12,6 +12,7 @@ node_modules
 # Arquivos temporários ou específicos de plataforma
 *.local
 *.env
+.env
 
 # Diretórios de saída
 dist
