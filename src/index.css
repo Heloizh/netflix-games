@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: #F7F7F5;
+    color: white;
     font-family: 'Poppins', sans-serif;
-    
 }
 
 
