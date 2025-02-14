@@ -4,9 +4,14 @@
 
 :root {
     overflow: hidden;
-    background-color: #F7F7F5;
+    background-color: #030303;
     color: white;
     font-family: 'Poppins', sans-serif;
 }
 
+@media (max-width: 1200px) {
+    :root {
+        overflow: auto;
+    }
+}
 
