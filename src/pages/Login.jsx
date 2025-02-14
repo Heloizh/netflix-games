@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/login.css";
 
 //Importação de componentes reutilizáveis
 import BackgroundLogin from "../components/BackgroundLogin";
 import Logo from "../components/Logo";
+import LoginForm from "../components/LoginForm";
 
 //Componentes de Login que exibe a tela inicial do app
 const Login = () => {
+
   return (
     <div>
       <BackgroundLogin>
@@ -26,7 +28,9 @@ const Login = () => {
               <h6 className="font-bold md:mt-8 text-sm md:text-base">Create Your Free Account & Start Playing</h6>
             </div>
             {/* Seção para exibir o formulário de login */}
-            <div className="container-login mt-60 md:-mt-10 md:mr-12"></div>
+            <div className="container-login md:-mt-10 md:mr-12">
+              <LoginForm/>
+            </div>
           </div>
         </div>
       </BackgroundLogin>

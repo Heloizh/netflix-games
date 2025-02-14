@@ -14,12 +14,19 @@
   
 }
 
+.inputLogin {
+    position: relative;
+    background-color: #363535;
+    padding: 10px;
+    border-radius: 2px 0 0 2px;
+}
+
 
 @media(max-width: 600px) {
     .background-image {
-        width: 50vh;
-        height: 20vh;
+        height: 55%;
     }
+
 }
 
 @media (max-width:1200px) {
@@ -27,5 +34,7 @@
         position: absolute;
         border-radius: 0;
         width: 100%;
+        top: 100%;
     }
+
 }
