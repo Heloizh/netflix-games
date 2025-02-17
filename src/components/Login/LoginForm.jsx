@@ -2,14 +2,35 @@ import React, { useState } from "react";
 import RegisterForm from "./RegisterForm";
 
 import { motion, AnimatePresence } from "framer-motion";
-import "../styles/login.css";
+import "../../styles/login.css";
+
+/* importações do firebase */
+import { auth } from "../../services/firebaseConfig"
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 //ICONS
 import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 
+
 const LoginForm = () => {
+  /* estados para registro */
   const [isRegistering, setisRegistering] = useState(false);
+  /* estados email e password */
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  /* função Sign In */  
+  function handleSignIn(e) {
+    e.preventDefault();
+    createUserWithEmailAndPassword(email, password)
+  }  
+
 
   return (
     <div className="flex items-center h-full justify-center">
@@ -42,7 +63,7 @@ const LoginForm = () => {
           <h1 className="text-4xl font-bold mb-10">Sign In</h1>
           <div className="flex-col flex gap-5">
             <div className="flex items-center justify-end">
-              <input type="email" placeholder="Email" className="inputLogin" />
+              <input type="email" placeholder="Email" className="inputLogin" onChange={(e) => setEmail(e.target.value)}/>
               <CiUser className="text-2xl absolute bg-primaryColor rounded-r-sm mr-2" />
             </div>
             <div className="flex items-center justify-end">
@@ -50,12 +71,13 @@ const LoginForm = () => {
                 type="password"
                 placeholder="Password"
                 className="inputLogin"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <RiLockPasswordLine className="text-2xl absolute bg-primaryColor rounded-r-sm mr-2" />
             </div>
           </div>
           <div className="cursor-pointer text-sm mb-3">Forgot your password? </div>
-          <button className="bg-buttonColor p-5 w-80 rounded-md hover:bg-blue-500">
+          <button className="bg-buttonColor p-5 w-80 rounded-md hover:bg-blue-500" onClick={handleSignIn}>
             Sign in
           </button>
           <br></br>
