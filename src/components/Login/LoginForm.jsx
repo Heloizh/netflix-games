@@ -7,7 +7,7 @@ import "../../styles/login.css";
 
 /* importações do firebase */
 import { auth } from "../../services/firebaseConfig";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 /* importações de componentes */
 import useUsers from "../../modules/login/AuthData";
@@ -17,19 +17,25 @@ import { CiUser } from "react-icons/ci";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const LoginForm = () => {
-  /* estados para registro */
+  /* estado registro */
   const [isRegistering, setisRegistering] = useState(false);
-  /* estados email e password */
+  /* estado email  */
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [emailExist, setEmailExist] = useState(false);
+  /* estado password */
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
+
   /* estado para exibir mensagem */
   const [showEmailMessage, setShowEmailMessage] = useState(false);
   /* acessando usuários */
   const users = useUsers();
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  /* adicionando funções do firebase*/
+  const [signInWithEmailAndPassword, userAuth, loadingSignIn, signInError] =
+    useSignInWithEmailAndPassword(auth);
+
+    
 
   /* verificação de email*/
   const handleEmailChange = (e) => {
@@ -42,7 +48,7 @@ const LoginForm = () => {
   };
 
   /* Função para Sign In */
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setShowEmailMessage(true);
 
@@ -51,7 +57,15 @@ const LoginForm = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(email, password);
+    //verifica erro de login
+    try {
+      await signInWithEmailAndPassword(email, password);
+      alert("Login bem-sucedido");
+    } catch (error) {
+      setLoginError(error.message);
+    }
+
+    signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -111,6 +125,7 @@ const LoginForm = () => {
                 />
                 <RiLockPasswordLine className="text-2xl absolute bg-primaryColor rounded-r-sm mr-2" />
               </div>
+              {loginError && <p>{loginError}</p>}
             </div>
             <div className="cursor-pointer text-sm mb-3">
               Forgot your password?{" "}
