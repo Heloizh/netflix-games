@@ -16,7 +16,7 @@ node_modules
 .env.local
 
 #ignorar api
-firebaseConfig.js
+.firebaseConfig.js
 
 # Diretórios de saída
 dist
